@@ -6,8 +6,9 @@
     @yield('css')
 </head>
 
-<body ng-app="App" class="custom-cursor" ng-cloak>
+<body  class="custom-cursor" >
     <!-- Custom Cursor -->
+    <div id="translate_select"></div>
     <div class="custom-cursor__cursor"></div>
     <div class="custom-cursor__cursor-two"></div>
 
@@ -27,7 +28,6 @@
     </div>
 
 
-    @include('site.partials.angular_mix')
 
     <div class="mobile-nav__wrapper">
         <div class="mobile-nav__overlay mobile-nav__toggler"></div>
@@ -87,60 +87,74 @@
 
     <a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="fa fa-angle-up"></i></a>
 
+    <div onclick="window.location.href= 'tel:{{ $config->hotline }}'" class="hotline-phone-ring-wrap">
+        <div class="hotline-phone-ring">
+            <div class="hotline-phone-ring-circle"></div>
+            <div class="hotline-phone-ring-circle-fill"></div>
+            <div class="hotline-phone-ring-img-circle">
+                <a href="tel:{{ $config->hotline }}" class="pps-btn-img">
+                    <img src="/site/images/phone.png" alt="Gọi điện thoại" width="50">
+                </a>
+            </div>
+        </div>
+        <a href="tel:0947988562">
+        </a>
+        <div class="hotline-bar"><a href="tel:0947988562">
+            </a><a href="tel:0947988562">
+                <span class="text-hotline">0947988562</span>
+            </a>
+        </div>
 
+    </div>
 
-    <script src="/site/vendors/jquery/jquery-3.6.0.min.js"></script>
-    <script src="/site/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/site/vendors/jarallax/jarallax.min.js"></script>
-    <script src="/site/vendors/jquery-ajaxchimp/jquery.ajaxchimp.min.js"></script>
-    <script src="/site/vendors/jquery-appear/jquery.appear.min.js"></script>
-    <script src="/site/vendors/jquery-circle-progress/jquery.circle-progress.min.js"></script>
-    <script src="/site/vendors/jquery-magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script src="/site/vendors/jquery-validate/jquery.validate.min.js"></script>
-    <script src="/site/vendors/nouislider/nouislider.min.js"></script>
-    <script src="/site/vendors/odometer/odometer.min.js"></script>
-    <script src="/site/vendors/slick/slick.min.js"></script>
-    <script src="/site/vendors/tiny-slider/tiny-slider.min.js"></script>
-    <script src="/site/vendors/wnumb/wNumb.min.js"></script>
-    <script src="/site/vendors/wow/wow.js"></script>
-    <script src="/site/vendors/isotope/isotope.js"></script>
-    <script src="/site/vendors/countdown/countdown.min.js"></script>
-    <script src="/site/vendors/owl-carousel/owl.carousel.min.js"></script>
-    <script src="/site/vendors/bxslider/jquery.bxslider.min.js"></script>
-    <script src="/site/vendors/bootstrap-select/js/bootstrap-select.min.js"></script>
-    <script src="/site/vendors/vegas/vegas.min.js"></script>
-    <script src="/site/vendors/jquery-ui/jquery-ui.js"></script>
-    <script src="/site/vendors/timepicker/timePicker.js"></script>
-    <script src="/site/vendors/circleType/jquery.circleType.js"></script>
-    <script src="/site/vendors/circleType/jquery.lettering.min.js"></script>
+{{--    @include('site.partials.angular_mix')--}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+    <script data-cfasync="false" src="/site/js/email-decode.min.js"></script>
+    <script src="/site/js/jquery-3.6.0.min.js"></script>
+    <script src="/site/js/bootstrap.bundle.min.js"></script>
+    <script src="/site/js/jarallax.min.js"></script>
+    <script src="/site/js/jquery.appear.min.js"></script>
+    <script src="/site/js/jquery.circle-progress.min.js"></script>
+    <script src="/site/js/jquery.magnific-popup.min.js"></script>
+    <script src="/site/js/swiper.min.js"></script>
+    <script src="/site/js/tiny-slider.min.js"></script>
+    <script src="/site/js/wow.js"></script>
+    <script src="/site/js/countdown.min.js"></script>
+    <script src="/site/js/owl.carousel.min.js"></script>
+    <script src="/site/js/jquery.bxslider.min.js"></script>
+    <script src="/site/js/vegas.min.js"></script>
+    <script src="/site/js/jquery-ui.js"></script>
+    <script src="/site/js/jquery.lettering.min.js"></script>
     <!-- template js -->
     <script src="/site/js/ambed.js"></script>
+    <script src="/site/js/jQuery.style.switcher.min.js"></script>
+    <script src="/site/js/toolbar.js"></script>
+    <script src="/site/js/callbutton.js"></script>
 
 
-    <!-- toolbar js -->
-    <script src="/site/vendors/toolbar/js/js.cookie.min.js"></script>
-    <script src="/site/vendors/toolbar/js/jQuery.style.switcher.min.js"></script>
-    <script src="/site/vendors/toolbar/js/toolbar.js"></script>
+    <script>
+        function translateheader(lang){
 
+            var languageSelect = document.querySelector("select.goog-te-combo");
+            console.log(languageSelect)
+            languageSelect.value = lang;
+            languageSelect.dispatchEvent(new Event("change"));
+
+        }
+    </script>
+    <script type="text/javascript"
+            src="/site/js/elementa0d8.js?cb=googleTranslateElementInit">
+    </script>
     <script>
         var CSRF_TOKEN = "{{ csrf_token() }}";
     </script>
 
     @stack('scripts')
-    <script>
-        app.controller('searchModal', function ($rootScope, $scope) {
-            $scope.search = function () {
-                if (!$scope.keyword) {
-                    return;
-                }
 
-                var url = '/tim-kiem/?keyword=' + encodeURIComponent($scope.keyword);
-                window.location.href = url;
-            }
-        })
-
-    </script>
 </body>
 
 </html>

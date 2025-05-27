@@ -70,6 +70,7 @@
                 facebook: this.facebook,
                 hotline: this.hotline,
                 address_company: this.address_company,
+                address_office: this.address_office,
                 address_company_eng: this.address_company_eng,
                 address_center_insurance: this.address_center_insurance,
                 zalo: this.zalo,

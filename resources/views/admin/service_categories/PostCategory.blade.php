@@ -5,6 +5,7 @@
 
         before(form) {
             this.image = {};
+            this.show_home_page = 1;
         }
 
         after(form) {
@@ -39,6 +40,7 @@
                 name: this.name,
                 intro: this.intro,
                 parent_id: this._parent_id,
+                show_home_page: this.show_home_page,
             }
             data = jsonToFormData(data);
             let image = this.image.submit_data;

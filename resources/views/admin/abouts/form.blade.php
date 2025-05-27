@@ -67,58 +67,6 @@
                 <div class="invalid-feedback d-block"><% errors.intro[0] %></div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-6 mb-4">
-                    <label class="form-label">Dịch vụ nổi bật</label>
-                    <input type="text" class="form-control" ng-model="form.service_title">
-                    <div class="invalid-feedback d-block"><% errors.service_title[0] %></div>
-                </div>
-                <div class="form-group col-md-6 mb-4">
-                    <label class="form-label">Mô tả dịch vụ nhanh</label>
-                    <textarea rows="2" class="form-control" ng-model="form.service_description"></textarea>
-                    <div class="invalid-feedback d-block"><% errors.service_description[0] %></div>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-6 mb-4">
-                    <label class="form-label">Số năm kinh nghiệm</label>
-                    <input type="text" class="form-control" ng-model="form.experience_number">
-                    <div class="invalid-feedback d-block"><% errors.experience_number[0] %></div>
-                </div>
-                <div class="form-group col-md-6 mb-4">
-                    <label class="form-label">Giới thiệu kinh nghiệm</label>
-                    <input type="text" class="form-control" ng-model="form.experience_text">
-                    <div class="invalid-feedback d-block"><% errors.experience_text[0] %></div>
-                </div>
-            </div>
-
-            <div class="form-group mb-5">
-                <label class="form-label required-label">Hotline</label>
-                <input type="tel" class="form-control" ng-model="form.phone_number">
-                <div class="invalid-feedback d-block"><% errors.phone_number[0] %></div>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Kết quả đạt được</label>
-                <div ng-repeat="(idx, item) in form.results" class="result-item">
-                    <input type="text"
-                           class="form-control"
-                           placeholder="Nhập kết quả"
-                           ng-model="item.title" />
-                    <button type="button"
-                            class="btn btn-success"
-                            ng-click="form.addResult()">
-                        <i class="fa fa-plus"></i>
-                    </button> &nbsp;
-                    <button type="button" ng-if="idx"
-                            class="btn btn-danger"
-                            ng-click="form.removeResult(idx)">
-                        <i class="fa fa-times"></i>
-                    </button>
-                </div>
-                <div class="invalid-feedback d-block"><% errors.results %></div>
-            </div>
         </div>
     </div>
 

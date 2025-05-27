@@ -31,6 +31,11 @@ class FooterComposer
         $about = About::query()->find(1);
         $categoriesProduct = Category::query()->latest()->get();
 
-        $view->with(['config' => $config, 'categories' => $categories, 'categoriesProduct' => $categoriesProduct, 'about' => $about]);
+        $categoryServices = PostCategory::query()->with(['image'])
+            ->where('type', PostCategory::TYPE_SERVICE)
+            ->where('parent_id', 0)
+            ->orderBy('sort_order')->get();
+
+        $view->with(['config' => $config, 'categories' => $categories, 'categoriesProduct' => $categoriesProduct, 'about' => $about, 'categoryServices' => $categoryServices]);
     }
 }

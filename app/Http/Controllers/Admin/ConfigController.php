@@ -64,6 +64,7 @@ class ConfigController extends Controller
 			$object->web_des_eng = $request->web_des_eng;
 			$object->zalo = $request->zalo;
 			$object->address_company = $request->address_company;
+			$object->address_office = $request->address_office;
 			$object->address_company_eng = $request->address_company_eng;
 			$object->address_center_insurance = $request->address_center_insurance;
 			$object->email = $request->email;

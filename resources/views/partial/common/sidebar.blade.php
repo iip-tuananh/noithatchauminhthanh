@@ -24,7 +24,23 @@
                 </a>
             </li>
 
-
+            <li class="nav-item has-treeview  {{ request()->is('admin/abouts') || request()->is('admin/abouts/*') || request()->is('admin/abouts') || request()->is('admin/abouts/*') ? 'menu-open' : '' }} ">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-info"></i>
+                    <p>
+                        Về chúng tôi
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('abouts.edit') }}" class="nav-link {{ Request::routeIs('abouts.edit') ? 'active' : '' }}">
+                            <i class="far fas  fa-angle-right nav-icon"></i>
+                            <p>Chỉnh sửa trang giới thiệu</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
             <li class="nav-item has-treeview  {{ request()->is('admin/products') || request()->is('admin/products*') || request()->is('admin/categories') || request()->is('admin/categories*') ? 'menu-open' : '' }} ">
                 <a href="#" class="nav-link">
@@ -145,35 +161,7 @@
             </li>
 
 
-{{--            <li class="nav-item has-treeview  {{ request()->is('admin/abouts') || request()->is('admin/abouts/*') || request()->is('admin/abouts') || request()->is('admin/abouts/*') ? 'menu-open' : '' }} ">--}}
-{{--                <a href="#" class="nav-link">--}}
-{{--                    <i class="nav-icon fas fa-info"></i>--}}
-{{--                    <p>--}}
-{{--                        Về chúng tôi--}}
-{{--                        <i class="fas fa-angle-left right"></i>--}}
-{{--                    </p>--}}
-{{--                </a>--}}
-{{--                <ul class="nav nav-treeview">--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="{{ route('abouts.edit') }}" class="nav-link {{ Request::routeIs('abouts.edit') ? 'active' : '' }}">--}}
-{{--                            <i class="far fas  fa-angle-right nav-icon"></i>--}}
-{{--                            <p>Chỉnh sửa trang giới thiệu</p>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="{{ route('aboutCategory.index') }}" class="nav-link {{ Request::routeIs('aboutCategory.index') ? 'active' : '' }}">--}}
-{{--                            <i class="far fas  fa-angle-right nav-icon"></i>--}}
-{{--                            <p>Quản lý danh mục</p>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="{{ route('about-page.index') }}" class="nav-link {{ Request::routeIs('about-page.index') ? 'active' : '' }}">--}}
-{{--                            <i class="far fas  fa-angle-right nav-icon"></i>--}}
-{{--                            <p>Quản lý bài viết giới thiệu</p>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
+
 
 
 
@@ -204,14 +192,14 @@
                         </a>
                     </li>
 
-                    <li class="nav-item has-treeview">
-                        <a href="{{ route('achievements.index') }}" class="nav-link {{ Request::routeIs('achievements.index') ? 'active' : '' }}">
-                            <i class="far fas  fa-angle-right nav-icon"></i>
-                            <p>
-                                Lý do chọn chúng tôi ?
-                            </p>
-                        </a>
-                    </li>
+{{--                    <li class="nav-item has-treeview">--}}
+{{--                        <a href="{{ route('achievements.index') }}" class="nav-link {{ Request::routeIs('achievements.index') ? 'active' : '' }}">--}}
+{{--                            <i class="far fas  fa-angle-right nav-icon"></i>--}}
+{{--                            <p>--}}
+{{--                                Lý do chọn chúng tôi ?--}}
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
 
 
                     <li class="nav-item">

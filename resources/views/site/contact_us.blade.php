@@ -50,13 +50,11 @@
                             <div class="section-title__line"></div>
                         </div>
                         <div class="contact-page__form">
-                            <form id="form-contact" class="comment-one__form contact-form-validated" novalidate="novalidate">
+                            <form action="{{ route('front.submitContact') }}" id="form-contact" class="comment-one__form" novalidate="novalidate">
                                 <div class="row">
                                     <div class="col-xl-6">
                                         <div class="comment-form__input-box">
-                                            <input type="text" placeholder="Họ tên" name="name">
-                                            <div class="invalid-feedback d-block" ng-if="errors['name']"><% errors['name'][0] %></div>
-
+                                            <input type="text" placeholder="Họ tên" name="name" required>
                                         </div>
                                     </div>
                                     <div class="col-xl-6">
@@ -66,9 +64,7 @@
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="comment-form__input-box">
-                                            <input type="text" placeholder="Số điện thoại" name="phone">
-                                            <div class="invalid-feedback d-block" ng-if="errors['phone']"><% errors['phone'][0] %></div>
-
+                                            <input type="text" placeholder="Số điện thoại" name="phone" required>
                                         </div>
                                     </div>
 
@@ -76,12 +72,11 @@
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <div class="comment-form__input-box text-message-box">
-                                            <textarea name="message" placeholder="Để lại nội dung liên hệ"></textarea>
-                                            <div class="invalid-feedback d-block" ng-if="errors['message']"><% errors['message'][0] %></div>
+                                            <textarea name="message" placeholder="Để lại nội dung liên hệ" required></textarea>
                                         </div>
 
                                         <div class="comment-form__btn-box" style="margin-top: 50px">
-                                            <button type="button" class="thm-btn comment-form__btn" ng-click="submitContact()">Gửi liên hệ</button>
+                                            <button type="submit" class="thm-btn comment-form__btn" ng-click="submitContact()">Gửi liên hệ</button>
                                         </div>
                                     </div>
                                 </div>
@@ -126,40 +121,57 @@
 
 @push('scripts')
     <script>
-        app.controller('AboutPage', function ($rootScope, $scope, $sce, $interval) {
-            $scope.errors = [];
-            $scope.submitContact = function () {
-                var url = "{{route('front.submitContact')}}";
-                var data = jQuery('#form-contact').serialize();
-                $scope.loading = true;
-                jQuery.ajax({
-                    type: 'POST',
-                    url: url,
-                    headers: {
-                        'X-CSRF-TOKEN': CSRF_TOKEN
-                    },
-                    data: data,
-                    success: function (response) {
-                        if (response.success) {
-                            toastr.success(response.message);
-                            jQuery('#form-contact')[0].reset();
-                            $scope.errors = [];
-                            $scope.$apply();
-                        } else {
-                            $scope.errors = response.errors;
-                            toastr.warning(response.message);
-                        }
-                    },
-                    error: function () {
-                        toastr.error('Đã có lỗi xảy ra');
-                    },
-                    complete: function () {
-                        $scope.loading = false;
-                        $scope.$apply();
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('form-contact');
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            // helper: xoá hết lỗi cũ
+            function clearErrors() {
+                form.querySelectorAll('[data-error-for]').forEach(div => {
+                    div.textContent = '';
+                    div.style.display = 'none';
+                });
+            }
+
+            // helper: show lỗi theo từng field
+            function showErrors(errors) {
+                Object.keys(errors).forEach(field => {
+                    const errDiv = form.querySelector(`[data-error-for="${field}"]`);
+                    if (errDiv) {
+                        errDiv.textContent = errors[field][0];
+                        errDiv.style.display = 'block';
                     }
                 });
             }
-        })
 
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                clearErrors();
+
+                const formData = new FormData(form);
+
+                fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                    },
+                    body: formData
+                })
+                    .then(res => res.json())
+                    .then(response => {
+                        if (response.success) {
+                            toastr.success('Gửi thông tin thành công');
+                            form.reset();
+                        } else {
+                            // hiển thị lỗi từng field
+                            showErrors(response.errors || {});
+                            toastr.warning(response.message || 'Vui lòng kiểm tra lại thông tin.');
+                        }
+                    })
+                    .catch(() => {
+                        toastr.error('Đã có lỗi xảy ra, vui lòng thử lại.');
+                    });
+            });
+        });
     </script>
 @endpush

@@ -21,9 +21,17 @@
                 <ul class="thm-breadcrumb list-unstyled">
                     <li><a href="{{ route('front.home-page') }}">Trang chủ</a></li>
                     <li><span>/</span></li>
-                    <li>{{ $category->name }}</li>
+                    @if($category)
+                        <li>{{ $category->name }}</li>
+                    @else
+                        <li>Nội thất</li>
+                    @endif
                 </ul>
-                <h2>{{ $category->name }}</h2>
+                @if($category)
+                    <h2>{{ $category->name }}</h2>
+                @else
+                    <h2>Nội thất</h2>
+                @endif
             </div>
         </div>
     </section>

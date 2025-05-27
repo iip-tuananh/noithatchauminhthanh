@@ -1,6 +1,17 @@
 (function ($) {
   "use strict";
 
+  function thmSwiperInit() {
+    // swiper slider
+    if ($(".thm-swiper__slider").length) {
+      $(".thm-swiper__slider").each(function () {
+        let elm = $(this);
+        let options = elm.data("swiper-options");
+        let thmSwiperSlider = new Swiper(elm, options);
+      });
+    }
+  }
+
   if ($(".project-two").length) {
     $(".project-two__content-box .project-two__single").each(function () {
       let self = $(this);
@@ -98,6 +109,11 @@
     });
   }
 
+
+
+
+
+
   if ($(".listing-details__contact-info-phone").length) {
     $(".listing-details__contact-info-phone").on("click", function (e) {
       e.preventDefault();
@@ -138,7 +154,7 @@
     $("#datepicker-inline").datepicker();
   }
 
-  $('input[name="time"]').ptTimeSelect();
+  // $('input[name="time"]').ptTimeSelect();
 
   if ($(".banner-bg-slide").length) {
     $(".banner-bg-slide").each(function () {
@@ -386,7 +402,23 @@
       });
     });
   }
-
+  $('.popup-gallery').magnificPopup({
+		delegate: 'a',
+		type: 'image',
+		tLoading: 'Loading image #%curr%...',
+		mainClass: 'mfp-img-mobile',
+		gallery: {
+			enabled: true,
+			navigateByImgClick: true,
+			preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+		},
+		image: {
+			tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+			titleSrc: function(item) {
+				return;
+			}
+		}
+	});
   function dynamicCurrentMenuClass(selector) {
     let FileName = window.location.href.split("/").reverse()[0];
 
@@ -589,6 +621,61 @@
     });
   }
 
+  if ($("#project-one__thumb").length) {
+    let testimonialsThumb = new Swiper("#project-one__thumb", {
+      slidesPerView: 4,
+      spaceBetween: 16,
+      speed: 1400,
+      watchSlidesVisibility: true,
+      watchSlidesProgress: true,
+      loop: true,
+      autoplay: {
+        delay: 5000
+      },
+      breakpoints: {
+        0: {
+          slidesPerView: 3,
+          spaceBetween: 10
+        },
+        575: {
+          slidesPerView: 4,
+          spaceBetween: 10
+        },
+        768: {
+          slidesPerView: 4,
+          spaceBetween: 16
+        },
+
+      }
+    });
+
+    let testimonialsCarousel = new Swiper("#project-one__carousel", {
+      observer: true,
+      observeParents: true,
+      loop: true,
+      speed: 1400,
+      mousewheel: false,
+      slidesPerView: 1,
+      spaceBetween: 72,
+      autoplay: {
+        delay: 5000
+      },
+      thumbs: {
+        swiper: testimonialsThumb
+      },
+      pagination: {
+        el: "#testimonials-one__carousel-pagination",
+        type: "bullets",
+        clickable: true
+      },
+
+      navigation: {
+        nextEl: "#project-one__swiper-button-next",
+        prevEl: "#project-one__swiper-button-prev"
+      }
+    });
+  }
+
   // ===Project===
   function projectMasonaryLayout() {
     if ($(".masonary-layout").length) {
@@ -642,11 +729,7 @@
     });
   }
 
-  if ($(".main-menu__list > li > a").length) {
-    $(".main-menu__list > li > a").append(function () {
-      return "<span class=\"main-menu-border\"></span>";
-    });
-  }
+
 
 
   function SmoothMenuScroll() {
@@ -712,6 +795,7 @@
     if ($(".preloader").length) {
       $(".preloader").fadeOut();
     }
+    thmSwiperInit();
     thmOwlInit();
     projectMasonaryLayout();
     priceFilter();
@@ -867,53 +951,5 @@
     $('select:not(.ignore)').niceSelect();
   }
 
-
-  /*--- Update 19/01/2025 (Mosharof) ---*/
-
-  function thmSlickInit() {
-    // slick slider
-    let thmslickCarousel = $(".thm-slick__carousel");
-    if (thmslickCarousel.length) {
-      thmslickCarousel.each(function () {
-        let elm = $(this);
-        let options = elm.data("slick-options");
-        let thmslickCarousel = elm.slick(
-          "object" === typeof options ? options : JSON.parse(options)
-        );
-      });
-    }
-    let thmslickCarouselCounter = $(".thm-slick__custome-counter");
-    if (thmslickCarouselCounter.length) {
-      thmslickCarouselCounter.each(function () {
-        let elm = $(this);
-        let options = elm.data("slick-options");
-        let currentSlide;
-        let slidesCount;
-        let sliderCounter = document.createElement('div');
-        sliderCounter.classList.add('thm-slick__counter');
-
-        let updateSliderCounter = function (slick, currentIndex) {
-          currentSlide = slick.slickCurrentSlide() + 1;
-          slidesCount = slick.slideCount;
-          $(sliderCounter).html('<span class="thm-slick__counter__active">' + currentSlide + '</span>' + '' + '<span>' + slidesCount + '</span>')
-        };
-        elm.on('init', function (event, slick) {
-          elm.append(sliderCounter);
-          updateSliderCounter(slick);
-        });
-        elm.on('afterChange', function (event, slick, currentSlide) {
-          updateSliderCounter(slick, currentSlide);
-        });
-
-        let thmslickCarousel = elm.slick(
-          "object" === typeof options ? options : JSON.parse(options)
-        );
-
-      });
-    }
-  }
-  $(window).on("load", function () {
-    thmSlickInit();
-  });
 
 })(jQuery);

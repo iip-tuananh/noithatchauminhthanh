@@ -52,7 +52,6 @@ class AboutController extends Controller
                 'service_description' => 'nullable',
                 'experience_number' => 'nullable',
                 'experience_text' => 'nullable',
-                'phone_number' => 'required',
             ]
         );
 

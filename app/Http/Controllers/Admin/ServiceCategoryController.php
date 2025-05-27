@@ -163,6 +163,7 @@ class ServiceCategoryController extends Controller
             }
             $object->name = $request->name;
             $object->intro = $request->intro;
+            $object->show_home_page = $request->show_home_page;
             $object->type = PostCategory::TYPE_SERVICE;
 
             $object->save();
@@ -259,6 +260,7 @@ class ServiceCategoryController extends Controller
             $object->name = $request->name;
             $object->intro = $request->intro;
             $object->type = PostCategory::TYPE_SERVICE;
+            $object->show_home_page = $request->show_home_page;
 
             $object->save();
 

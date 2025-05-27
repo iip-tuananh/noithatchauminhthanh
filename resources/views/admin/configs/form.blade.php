@@ -31,9 +31,14 @@
 					</span>
 				</div>
                 <div class="form-group custom-group">
-                    <label class="form-label">Địa chỉ công ty</label>
+                    <label class="form-label">Địa chỉ xưởng sản xuất</label>
                     <input class="form-control" ng-model="form.address_company" type="text">
                 </div>
+                <div class="form-group custom-group">
+                    <label class="form-label">Địa chỉ văn phòng</label>
+                    <input class="form-control" ng-model="form.address_office" type="text">
+                </div>
+
                 <div class="form-group custom-group">
                     <label class="form-label">Mã số thuế</label>
                     <input class="form-control" ng-model="form.tax_code" type="text">
@@ -57,7 +62,7 @@
                     <input class="form-control" ng-model="form.twitter" type="text">
                 </div>
                 <div class="form-group custom-group">
-                    <label class="form-label">Instagram</label>
+                    <label class="form-label">Tiktok</label>
                     <input class="form-control" ng-model="form.instagram" type="text">
                 </div>
                 <div class="form-group custom-group">

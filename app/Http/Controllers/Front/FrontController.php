@@ -71,7 +71,7 @@ class FrontController extends Controller
         $data['categoryServices'] = PostCategory::query()->with(['image'])
             ->where('type', PostCategory::TYPE_SERVICE)
             ->where('parent_id', 0)
-            ->latest()->get();
+            ->orderBy('sort_order')->get();
 
         $data['projects'] = Project::query()->with(['image'])
             ->where('status', 1)
@@ -82,6 +82,20 @@ class FrontController extends Controller
             ->where('type', 'post')
             ->latest()->get()->take(3);
         $data['banners'] = Banner::query()->with(['image'])->latest()->get();
+        $data['about'] = About::query()->with(['image', 'image_back'])->first();
+        $data['categoryServicesFetured'] = PostCategory::with(['image','childs'])
+            ->where('type', PostCategory::TYPE_SERVICE)
+            ->where('parent_id', 0)
+            ->where('show_home_page', 1)
+            ->orderBy('sort_order')
+            ->get()
+            ->each(function($cate) {
+                $cate->setRelation('services', Service::query()->with('image')->where('status', 1)
+                    ->whereIn('cate_id', $cate->childs->pluck('id'))
+                    ->latest()
+                    ->get()
+                );
+            });
 
         return view('site.home', $data);
     }
@@ -137,9 +151,16 @@ class FrontController extends Controller
     }
 
     public function getProducts(Request $request, $slug = null) {
-        $category = Category::findBySlug($slug);
-        $products = Product::query()->with(['image'])
-            ->where(['status' => 1, 'cate_id' => $category->id])->latest()->get();
+        $category = null;
+        if($slug) {
+            $category = Category::findBySlug($slug);
+            $products = Product::query()->with(['image'])
+                ->where(['status' => 1, 'cate_id' => $category->id])->latest()->get();
+        }else {
+            $products = Product::query()->with(['image'])
+                ->where(['status' => 1])->latest()->get();
+        }
+
         $allCategories = Category::query()->get();
 
         return view('site.product_category', compact('products', 'category', 'allCategories'));
@@ -818,15 +839,23 @@ class FrontController extends Controller
     {
         $rule  =  [
             'name'  => 'required',
-            'message'  => 'required',
             'phone' => 'required|regex:/^(0)[0-9]{9,11}$/',
         ];
+
+
+        if($request->type && $request->type == 'send_info') {
+            $rule['email'] = 'required';
+            $rule['message'] = 'nullable';
+        } else {
+            $rule['message'] = 'required';
+        }
 
         $validate = Validator::make(
             $request->all(),
             $rule,
             [
                 'name.required' => 'Vui lòng nhập họ tên',
+                'email.required' => 'Vui lòng nhập email',
                 'phone.required' => 'Vui lòng nhập số điện thoại',
                 'phone.regex' => 'Số điện thoại không đúng định dạng',
                 'message.required' => 'Vui lòng nhập nội dung liên hệ',
