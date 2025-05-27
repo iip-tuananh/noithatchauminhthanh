@@ -130,21 +130,35 @@
     <script src="/site/js/jquery-ui.js"></script>
     <script src="/site/js/jquery.lettering.min.js"></script>
     <!-- template js -->
-    <script src="/site/js/ambed.js"></script>
+    <script src="/site/js/ambed.js?v=1234"></script>
     <script src="/site/js/jQuery.style.switcher.min.js"></script>
     <script src="/site/js/toolbar.js"></script>
     <script src="/site/js/callbutton.js"></script>
 
 
     <script>
-        function translateheader(lang){
+        function translateheader(lang) {
+            var sel = document.querySelector("select.goog-te-combo");
+            if (!sel) {
+                // Nếu chưa có, thử lại sau 100ms
+                return setTimeout(function() {
+                    translateheader(lang);
+                }, 100);
+            }
 
-            var languageSelect = document.querySelector("select.goog-te-combo");
-            console.log(languageSelect)
-            languageSelect.value = lang;
-            languageSelect.dispatchEvent(new Event("change"));
+            // 1) Gán giá trị
+            sel.value = lang;
 
+            // 2) Tạo event theo chuẩn cũ (HTMLEvents)
+            var evOld = document.createEvent("HTMLEvents");
+            evOld.initEvent("change", true, true);
+            sel.dispatchEvent(evOld);
+
+            // 3) Tạo event theo chuẩn mới (Event constructor)
+            var evNew = new Event("change", { bubbles: true, cancelable: true });
+            sel.dispatchEvent(evNew);
         }
+
     </script>
     <script type="text/javascript"
             src="/site/js/elementa0d8.js?cb=googleTranslateElementInit">

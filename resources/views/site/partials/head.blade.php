@@ -82,8 +82,8 @@
     <link rel="stylesheet" href="/site/css/callbutton.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <script type="text/javascript"
-            src="/site/js/elementa0d8.js?cb=googleTranslateElementInit"></script>
+{{--    <script type="text/javascript"--}}
+{{--            src="/site/js/elementa0d8.js?cb=googleTranslateElementInit"></script>--}}
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({pageLanguage: 'vi',includedLanguages:'en,hi,vi,zh-CN', }, 'translate_select');
