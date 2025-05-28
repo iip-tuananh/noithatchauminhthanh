@@ -6,11 +6,11 @@
 @endsection
 
 @section('page_title')
-    Quản lý hàng hóa
+    Quản lý sản phẩm
 @endsection
 
 @section('title')
-    Quản lý hàng hóa
+    Quản lý sản phẩm
 @endsection
 
 @section('buttons')
@@ -93,7 +93,7 @@
                 {data: 'action', orderable: false, title: "Hành động"}
             ],
             search_columns: [
-                {data: 'name', search_type: "text", placeholder: "Tên hàng hóa"},
+                {data: 'name', search_type: "text", placeholder: "Tên sản phẩm"},
                 {
                     data: 'status', search_type: "select", placeholder: "Trạng thái",
                     column_data: [{id: 1, name: "Xuất bản"}, {id: 0, name: "Nháp"}]

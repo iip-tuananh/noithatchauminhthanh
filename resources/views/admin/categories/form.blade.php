@@ -8,6 +8,9 @@
             cursor: pointer;
         }
     </style>
+    <div class="col-sm-2">
+    </div>
+
     <div class="col-sm-8">
         <div class="form-group custom-group mb-4">
             <label class="form-label required-label">Tên danh mục</label>
@@ -34,7 +37,10 @@
         </div>
 
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-2">
+    </div>
+
+{{--    <div class="col-sm-4">--}}
 {{--        <div class="form-group custom-group mb-4">--}}
 {{--            <label class="form-label required-label">Hiển thị ngoài trang chủ</label>--}}
 {{--            <select id="my-select" class="form-control custom-select" ng-model="form.show_home_page">--}}
@@ -45,26 +51,26 @@
 {{--                <strong><% errors.show_home_page[0] %></strong>--}}
 {{--            </span>--}}
 {{--        </div>--}}
-        <div class="form-group text-center mb-4">
-            <label class="form-label">Ảnh đại diện</label>
-            <div class="main-img-preview">
-                <p class="help-block-img">* Ảnh định dạng: jpg, png không quá 2MB.</p>
-                <img class="thumbnail img-preview" ng-src="<% form.image.path %>">
-            </div>
-            <div class="input-group" style="width: 100%; text-align: center">
-                <div class="input-group-btn" style="margin: 0 auto">
-                    <div class="fileUpload fake-shadow cursor-pointer">
-                        <label class="mb-0" for="<% form.image.element_id %>">
-                            <i class="glyphicon glyphicon-upload"></i> Chọn ảnh
-                        </label>
-                        <input class="d-none" id="<% form.image.element_id %>" type="file" class="attachment_upload" accept=".jpg,.jpeg,.png">
-                    </div>
-                </div>
-            </div>
-            <span class="invalid-feedback d-block" role="alert">
-                <strong><% errors.image[0] %></strong>
-            </span>
-        </div>
+{{--        <div class="form-group text-center mb-4">--}}
+{{--            <label class="form-label">Ảnh đại diện</label>--}}
+{{--            <div class="main-img-preview">--}}
+{{--                <p class="help-block-img">* Ảnh định dạng: jpg, png không quá 2MB.</p>--}}
+{{--                <img class="thumbnail img-preview" ng-src="<% form.image.path %>">--}}
+{{--            </div>--}}
+{{--            <div class="input-group" style="width: 100%; text-align: center">--}}
+{{--                <div class="input-group-btn" style="margin: 0 auto">--}}
+{{--                    <div class="fileUpload fake-shadow cursor-pointer">--}}
+{{--                        <label class="mb-0" for="<% form.image.element_id %>">--}}
+{{--                            <i class="glyphicon glyphicon-upload"></i> Chọn ảnh--}}
+{{--                        </label>--}}
+{{--                        <input class="d-none" id="<% form.image.element_id %>" type="file" class="attachment_upload" accept=".jpg,.jpeg,.png">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <span class="invalid-feedback d-block" role="alert">--}}
+{{--                <strong><% errors.image[0] %></strong>--}}
+{{--            </span>--}}
+{{--        </div>--}}
         <hr>
         {{-- <div class="form-group text-center mb-4">
             <label class="form-label">Ảnh banner(1530x420px)</label>
@@ -86,7 +92,7 @@
                 <strong><% errors.banner[0] %></strong>
             </span>
         </div> --}}
-    </div>
+{{--    </div>--}}
 </div>
 <hr>
 <div class="text-right">

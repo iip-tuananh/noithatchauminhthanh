@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Chỉnh sửa hàng hóa
+    Chỉnh sửa sản phẩm
 @endsection
 
 @section('page_title')
-    Chỉnh sửa hàng hóa
+    Chỉnh sửa sản phẩm
 @endsection
 
 @section('content')

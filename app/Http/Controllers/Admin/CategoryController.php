@@ -82,7 +82,7 @@ class CategoryController extends Controller
 //				'show_home_page' => 'required|in:0,1',
 				'short_des' => 'nullable',
 				'intro' => 'nullable',
-				'image' => 'required|file|mimes:jpg,jpeg,png,webp|max:3000',
+//				'image' => 'required|file|mimes:jpg,jpeg,png,webp|max:3000',
 				'banner' => 'nullable|file|mimes:jpg,jpeg,png,webp|max:3000',
 			]
 		);

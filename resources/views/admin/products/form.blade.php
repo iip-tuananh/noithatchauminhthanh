@@ -54,7 +54,7 @@
         </div>
 
         <div class="form-group custom-group mb-4">
-            <label class="form-label required-label">Tên hàng hóa</label>
+            <label class="form-label required-label">Tên sản phẩm</label>
             <input class="form-control " type="text" ng-model="form.name">
             <span class="invalid-feedback d-block" role="alert">
                 <strong>

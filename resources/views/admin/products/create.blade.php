@@ -1,15 +1,15 @@
 @extends('layouts.main')
 
 @section('page_title')
-    Thêm mới hàng hóa
+    Thêm mới sản phẩm
 @endsection
 
 @section('title')
-    Thêm mới hàng hóa
+    Thêm mới sản phẩm
 @endsection
 
 @section('title')
-    Thêm mới hàng hóa
+    Thêm mới sản phẩm
 @endsection
 @section('content')
     <div ng-controller="CreateProduct" ng-cloak>

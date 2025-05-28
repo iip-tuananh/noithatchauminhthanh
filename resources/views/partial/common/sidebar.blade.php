@@ -46,7 +46,7 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fab fa-dropbox"></i>
                     <p>
-                        Quản lý hàng hóa
+                        Quản lý nội thất
                         <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
@@ -66,13 +66,13 @@
                     <li class="nav-item">
                         <a href="{{ route('Product.index') }}" class="nav-link {{ Request::routeIs('Product.index') ? 'active' : '' }}">
                             <i class="far fas  fa-angle-right nav-icon"></i>
-                            <p>Danh sách hàng hóa</p>
+                            <p>Danh sách sản phẩm</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('Product.create') }}" class="nav-link {{ Request::routeIs('Product.create') ? 'active' : '' }}">
                             <i class="far fas  fa-angle-right nav-icon"></i>
-                            <p>Thêm mới hàng hóa</p>
+                            <p>Thêm mới sản phẩm</p>
                         </a>
                     </li>
                 </ul>

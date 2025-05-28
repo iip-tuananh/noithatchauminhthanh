@@ -6,11 +6,11 @@
 
 
 @section('title')
-Thêm mới danh mục hàng hóa
+Thêm mới danh mục sản phẩm nội thất
 @endsection
 
 @section('page_title')
-Thêm mới danh mục hàng hóa
+Thêm mới danh mục sản phẩm nội thất
 @endsection
 
 @section('content')
