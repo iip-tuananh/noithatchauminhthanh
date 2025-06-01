@@ -4,6 +4,16 @@
 <head>
     @include('site.partials.head')
     @yield('css')
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-769309501">
+    </script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-769309501');
+    </script>
 </head>
 
 <body ng-app="App" class="custom-cursor" ng-cloak>
