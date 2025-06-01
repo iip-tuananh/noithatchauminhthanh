@@ -17,7 +17,7 @@
                                     </div>
                                     <div class="content">
                                         <p>Hotline</p>
-                                        <h5><a href="tel:{{ $config->hotline }}">{{ $config->hotline }}</a></h5>
+                                        <h5 style="font-weight: 600"><a href="tel:{{ $config->hotline }}">{{ $config->hotline }}</a></h5>
                                     </div>
                                 </li>
                                 <li>
@@ -26,7 +26,7 @@
                                     </div>
                                     <div class="content">
                                         <p>Địa chỉ</p>
-                                        <h5><a href=" ">{{ $config->address_company }}</a></h5>
+                                        <h5 style="font-weight: 600"><a href=" ">{{ $config->address_company }}</a></h5>
                                     </div>
                                 </li>
 

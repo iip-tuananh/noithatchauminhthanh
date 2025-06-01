@@ -79,7 +79,7 @@
     <!-- modes css -->
     <!-- toolbar css -->
     <link rel="stylesheet" href="/site/css/toolbar.css">
-    <link rel="stylesheet" href="/site/css/callbutton.css">
+    <link rel="stylesheet" href="/site/css/callbutton.css?v=12">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 {{--    <script type="text/javascript"--}}
