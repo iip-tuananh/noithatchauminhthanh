@@ -209,13 +209,13 @@
                     <!--Services One Single-->
                     <div class="services-one__single wow fadeInUp" data-wow-delay="100ms">
                         <div class="services-one__img">
-                            <a href="{{ route('front.products') }}">
+                            <a href="{{ route('front.products', ['parentSlug' => 'all']) }}">
                                 <img src="/site/images/2251.jpg" alt="">
                             </a>
 
                         </div>
                         <div class="services-one__content">
-                            <h3 class="services-one__title"><a href="{{ route('front.products') }}">Nội Thất</a></h3>
+                            <h3 class="services-one__title"><a href="{{ route('front.products', ['parentSlug' => 'all']) }}">Nội Thất</a></h3>
                             <div class="services-one__text line_3" title="Chúng tôi cung cấp dịch vụ thi công và thiết kế nội thất trọn gói">
                                 Chúng tôi cung cấp dịch vụ thi công và thiết kế nội thất trọn gói
                             </div>

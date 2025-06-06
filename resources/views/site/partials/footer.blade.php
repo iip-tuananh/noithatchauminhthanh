@@ -110,7 +110,7 @@
                         <h3 class="footer-widget__title">Dịch vụ</h3>
                         <ul class="footer-widget__explore-list list-unstyled clearfix">
 
-                            <li><a href="{{ route('front.products') }}">Nội thất</a></li>
+                            <li><a href="{{ route('front.products', ['parentSlug' => 'all']) }}">Nội thất</a></li>
                             @foreach($categoryServices as $cateService)
                                 <li><a href="{{ route('front.services', $cateService->slug) }}">{{ $cateService->name }}</a></li>
                             @endforeach

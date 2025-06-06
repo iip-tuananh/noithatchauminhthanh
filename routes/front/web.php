@@ -3,7 +3,7 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/','FrontController@homePage')->name('front.home-page');
     Route::get('/gioi-thieu','FrontController@abouts')->name('front.abouts');
     Route::get('/ve-chung-toi','FrontController@about_page')->name('front.about_page');
-    Route::get('/san-pham/{slug?}','FrontController@getProducts')->name('front.products');
+    Route::get('/san-pham/{parentSlug}/{slug?}','FrontController@getProducts')->name('front.products');
     Route::get('/chi-tiet-san-pham/{slug}','FrontController@getProductDetail')->name('front.get-product-detail');
     Route::get('/dich-vu/{parentSlug}/{slug?}','FrontController@services')->name('front.services');
     Route::get('/chi-tiet-dich-vu/{slug}','FrontController@getServiceDetail')->name('front.getServiceDetail');

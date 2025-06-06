@@ -55,7 +55,18 @@
                                     <a href="#">Nội thất</a>
                                     <ul>
                                         @foreach($categoriesProduct as $cateProduct)
-                                            <li><a href="{{route('front.products', $cateProduct->slug)}}">{{ $cateProduct->name }}</a></li>
+                                            <li class="{{ $cateProduct->childs()->count() ? 'dropdown' : ''}}">
+                                                <a href="{{route('front.products', ['parentSlug' => $cateProduct->slug])}}">{{ $cateProduct->name }}</a>
+
+                                                @if($cateProduct->childs()->count())
+                                                    <ul class="sub-menu">
+                                                        @foreach($cateProduct->childs as $child)
+                                                            <li><a href="{{route('front.products', ['parentSlug' => $cateProduct->slug, 'slug' => $child->slug])}}">{{ $child->name }}</a></li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>
+
                                         @endforeach
                                     </ul>
                                 </li>

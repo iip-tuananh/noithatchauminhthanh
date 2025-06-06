@@ -21,20 +21,99 @@
                 <ul class="thm-breadcrumb list-unstyled">
                     <li><a href="{{ route('front.home-page') }}">Trang chủ</a></li>
                     <li><span>/</span></li>
-                    @if($category)
-                        <li>{{ $category->name }}</li>
+                    @if(! $getAll)
+                        <li>{{ $parentCate->name }}</li>
+                        @if($category)
+                            <li><span>/</span></li>
+                            <li>{{ $category->name }}</li>
+                        @endif
                     @else
                         <li>Nội thất</li>
                     @endif
                 </ul>
-                @if($category)
-                    <h2>{{ $category->name }}</h2>
+
+                @if(! $getAll)
+                    @if($category)
+                      <h2>{{ $category->name }}</h2>
+                    @else
+                      <h2>{{ $parentCate->name }}</h2>
+                    @endif
                 @else
                     <h2>Nội thất</h2>
                 @endif
             </div>
         </div>
     </section>
+
+    <style>
+        /* 1. Ẩn menu con (.sub-menu) theo mặc định */
+        .shop-category .sub-menu {
+            display: none;
+            padding-left: 15px;    /* lùi vào cho dễ nhìn */
+            margin: 5px 0;         /* khoảng cách trên dưới nếu cần */
+        }
+
+        /* 2. Khi di chuột vào <li> chứa sub-menu thì show menu con */
+        .shop-category ul > li:hover > .sub-menu {
+            display: block;
+        }
+
+        /* 3. Nếu <li> có class active (ví dụ đang ở trang con), thì luôn mở menu con */
+        .shop-category ul > li.active > .sub-menu {
+            display: block;
+        }
+
+        /* 4. Tạo dấu mũi tên để chỉ menu con (tuỳ chọn, có thể bỏ phần này nếu không cần) */
+        /*.shop-category ul > li > a {*/
+        /*    position: relative;*/
+        /*    display: inline-block;*/
+        /*    padding-right: 20px; !* chừa chỗ cho mũi tên *!*/
+        /*}*/
+
+        /* Dấu mũi tên xuống nằm bên phải */
+        .shop-category ul > li > a::after {
+            /* tam giác hướng sang phải */
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%) rotate(0deg);
+            transition: transform 0.2s ease;
+            font-size: 0.7em;
+            color: #555; /* màu tuỳ chỉnh */
+        }
+
+        /* Khi hover <li> hoặc nếu <li> đã active, xoay mũi tên quay xuống */
+        .shop-category ul > li:hover > a::after,
+        .shop-category ul > li.active > a::after {
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        /* 5. Tuỳ chỉnh khoảng cách và font cho menu con */
+        .shop-category .sub-menu li {
+            margin: 4px 0;
+        }
+
+        .shop-category .sub-menu li a {
+            font-size: 0.95em;
+            padding-left: 10px; /* lùi thêm để phân biệt rõ */
+            color: #333;        /* màu chữ con */
+        }
+
+        /* 6. Thêm style khi hover vào link menu con để dễ tương tác */
+        .shop-category .sub-menu li a:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        .shop-category .sub-menu {
+            list-style-type: none;
+        }
+
+        /* Đảm bảo mỗi li trong sub-menu không có bullet */
+        .shop-category .sub-menu li {
+            list-style-type: none;
+        }
+    </style>
 
     <section class="product">
         <div class="container">
@@ -45,9 +124,16 @@
                             <h3 class="product__sidebar-title">Danh mục</h3>
                             <ul class="list-unstyled">
                                 @foreach($allCategories as $cate)
-                                    <li class="{{ url()->current() == route('front.products', $cate->slug) ? 'active' : '' }}">
-                                        <a href="{{ route('front.products', $cate->slug) }}">{{ $cate->name }}</a></li>
-
+                                    <li class="">
+                                        <a href="{{route('front.products', ['parentSlug' => $cate->slug])}}">{{ $cate->name }}</a>
+                                        @if($cate->childs()->count())
+                                            <ul class="sub-menu">
+                                                @foreach($cate->childs as $child)
+                                                    <li><a href="{{route('front.products', ['parentSlug' => $cate->slug, 'slug' => $child->slug])}}">{{ $child->name }}</a></li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>

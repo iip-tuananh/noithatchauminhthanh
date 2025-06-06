@@ -150,20 +150,38 @@ class FrontController extends Controller
         return view('site.service_detail', compact('service', 'allServices'));
     }
 
-    public function getProducts(Request $request, $slug = null) {
+    public function getProducts(Request $request, $parentSlug, $slug = null) {
         $category = null;
+        $parentCate = null;
+        $getAll = false;
         if($slug) {
             $category = Category::findBySlug($slug);
+            $parentCate = Category::query()->find($category->parent_id);
             $products = Product::query()->with(['image'])
                 ->where(['status' => 1, 'cate_id' => $category->id])->latest()->get();
-        }else {
-            $products = Product::query()->with(['image'])
-                ->where(['status' => 1])->latest()->get();
+        } else {
+            if($parentSlug == 'all') {
+                $getAll = true;
+                $products = Product::query()->with(['image'])
+                    ->where(['status' => 1])->latest()->get();
+            } else {
+                $parentCate = Category::findBySlug($parentSlug);
+                $childCateIds = $parentCate->childs->pluck('id')->toArray();
+                if(! count($childCateIds)) {
+                    $products = Product::query()->with(['image'])
+                        ->where('cate_id', $parentCate->id)
+                        ->where(['status' => 1])->latest()->get();
+                } else {
+                    $products = Product::query()->with(['image'])
+                        ->whereIn('cate_id', $childCateIds)
+                        ->where(['status' => 1])->latest()->get();
+                }
+            }
         }
 
-        $allCategories = Category::query()->get();
+        $allCategories = Category::query()->with('childs')->where('parent_id', 0)->get();
 
-        return view('site.product_category', compact('products', 'category', 'allCategories'));
+        return view('site.product_category', compact('products', 'parentCate', 'category', 'allCategories', 'getAll'));
     }
 
     public function getProductDetail(Request $request, $slug = null) {

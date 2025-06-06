@@ -1,7 +1,7 @@
 <script>
     class Category extends BaseClass {
         no_set = [];
-        all_categories = @json(\App\Model\Admin\Category::getForSelect());
+        all_categories = @json(\App\Model\Admin\Category::getForSelect(true));
 
         before(form) {
             this.image = {};
@@ -48,6 +48,7 @@
 
         get submit_data() {
             let data = {
+                parent_id: this._parent_id,
                 name: this.name,
                 intro: this.intro,
                 short_des: this.short_des,

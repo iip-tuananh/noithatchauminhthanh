@@ -38,14 +38,24 @@ class CategoryController extends Controller
             $readbleArray = $this->parseJsonArray($data);
             $i=0;
             foreach($readbleArray as $row){
-				if($row['parentID']) {
-					$level = ThisModel::where('id', $row['parentID'])->first()->level + 1;
+                $parentID = $row['parentID'];
+
+                if($row['parentID']) {
+                    $parent = ThisModel::find($parentID);
+                    $level = ThisModel::where('id', $row['parentID'])->first()->level + 1;
 				} else {
 					$level = 0;
 				}
                 $i++;
-                DB::table('categories')->where('id',$row['id'])->update(['sort_order' => $i]);
+
+                if ($level > 1) {
+                    $level  = 1;
+                    $parentID = $parent->parent_id;
+                }
+
+                DB::table('categories')->where('id',$row['id'])->update(['parent_id' => $parentID, 'sort_order' => $i, 'level' => $level]);
             }
+
 			$json->success = true;
 			$json->message = "Sắp xếp thành công";
 			return Response::json($json);
@@ -99,14 +109,41 @@ class CategoryController extends Controller
 		try {
 			$object = new ThisModel();
 
-            $object->level = 0;
-            $object->sort_order = 0;
+            if($request->parent_id) {
+                $parent = ThisModel::where('id',$request->parent_id)->first();
+                if($parent->level + 1 > 3) {
+                    $json->success = false;
+                    $json->message = "Menu không được quá 3 cấp cha con!";
+                    return Response::json($json);
+                }
+                $stt = ThisModel::where('parent_id', $request->parent_id)->count();
+                if($stt > 0) {
+                    $stt += $stt;
+                } else {
+                    $stt = $parent->sort_order + 1;
+                }
+                $stt = $parent->sort_order + 1;
+                $object->parent_id = $request->parent_id;
+                $object->level = $parent->level + 1;
+                $object->sort_order = $stt;
+            } else {
+                $object->level = 0;
+                $object->sort_order = 0;
+            }
+
 			$object->name = $request->name;
 			$object->intro = $request->intro;
 			$object->short_des = $request->short_des;
 //			$object->show_home_page = $request->show_home_page ?? 0;
 			$object->save();
 
+            // Cập nhật lại stt các danh mục có stt lớn hơn
+            if($request->parent_id) {
+                foreach(ThisModel::where('sort_order','>=',$stt)->where('id','<>', $object->id)->orderBy('sort_order','asc')->get() as $item) {
+                    $item->sort_order = $item->sort_order + 1;
+                    $item->save();
+                }
+            }
 
 			if($request->image) {
 				FileHelper::uploadFileToCloudflare($request->image, $object->id, ThisModel::class, 'image');
@@ -167,6 +204,32 @@ class CategoryController extends Controller
 		DB::beginTransaction();
 		try {
 			$object = ThisModel::find($id);
+
+            if($request->parent_id) {
+                if($request->parent_id != $object->parent_id) {
+                    $parent = ThisModel::where('id',$request->parent_id)->first();
+                    if($parent->level + 1 > 3) {
+                        $json->success = false;
+                        $json->message = "Menu không được quá 3 cấp cha con!";
+                        return Response::json($json);
+                    }
+
+                    $stt = $parent->sort_order + 1;
+                    $object->parent_id = $request->parent_id;
+                    $object->level = $parent->level + 1;
+                    $object->sort_order = $stt;
+
+                    // Cập nhật lại stt các danh mục có stt lớn hơn
+                    foreach(ThisModel::where('sort_order','>=',$stt)->where('id','<>', $object->id)->orderBy('sort_order','asc')->get() as $item) {
+                        $item->sort_order = $item->sort_order + 1;
+                        $item->save();
+                    }
+                }
+            } else {
+                $object->level = 0;
+                $object->parent_id = 0;
+                $object->sort_order = 0;
+            }
 
 			$object->name = $request->name;
 			$object->intro = $request->intro;

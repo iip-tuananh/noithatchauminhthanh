@@ -123,11 +123,17 @@ class Category extends BaseModel
         return self::orderby('sort_order')->get();
     }
 
-    public static function getForSelect()
+    public static function getForSelect($getParent = false)
     {
         $all = self::select(['id', 'name', 'sort_order', 'level'])
-            ->orderBy('sort_order', 'asc')
-            ->get()->toArray();
+            ->orderBy('sort_order', 'asc');
+
+        if($getParent) {
+            $all = $all->where('parent_id', 0);
+        }
+
+        $all = $all->get()->toArray();
+
         $result = [];
         $result = array_map(function ($value) {
             if ($value['level'] == 1) {

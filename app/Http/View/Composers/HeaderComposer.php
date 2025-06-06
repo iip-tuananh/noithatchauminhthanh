@@ -20,7 +20,9 @@ class HeaderComposer
     {
         $config = Config::query()->get()->first();
         $services = Service::query()->where('status', 1)->latest()->get();
-        $categoriesProduct = Category::query()->orderBy('sort_order')->get();
+        $categoriesProduct = Category::query()->with('childs')
+            ->where('parent_id', 0)
+            ->orderBy('sort_order')->get();
         $serviceCategories = PostCategory::query()->with('childs')
             ->where('type', PostCategory::TYPE_SERVICE)
             ->where('parent_id', 0)
