@@ -249,6 +249,10 @@
                                     </div>
                                 @endforeach
                             </div>
+
+                            <div class="col-12 mt-4">
+                                {{ $products->links('site.pagination.paginate2') }}
+                            </div>
                         </div>
                     </div>
                 </div>

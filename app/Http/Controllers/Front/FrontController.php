@@ -158,26 +158,28 @@ class FrontController extends Controller
             $category = Category::findBySlug($slug);
             $parentCate = Category::query()->find($category->parent_id);
             $products = Product::query()->with(['image'])
-                ->where(['status' => 1, 'cate_id' => $category->id])->latest()->get();
+                ->where(['status' => 1, 'cate_id' => $category->id])->latest();
         } else {
             if($parentSlug == 'all') {
                 $getAll = true;
                 $products = Product::query()->with(['image'])
-                    ->where(['status' => 1])->latest()->get();
+                    ->where(['status' => 1])->latest();
             } else {
                 $parentCate = Category::findBySlug($parentSlug);
                 $childCateIds = $parentCate->childs->pluck('id')->toArray();
                 if(! count($childCateIds)) {
                     $products = Product::query()->with(['image'])
                         ->where('cate_id', $parentCate->id)
-                        ->where(['status' => 1])->latest()->get();
+                        ->where(['status' => 1])->latest();
                 } else {
                     $products = Product::query()->with(['image'])
                         ->whereIn('cate_id', $childCateIds)
-                        ->where(['status' => 1])->latest()->get();
+                        ->where(['status' => 1])->latest();
                 }
             }
         }
+
+        $products = $products->paginate(15);
 
         $allCategories = Category::query()->with('childs')->where('parent_id', 0)->get();
 

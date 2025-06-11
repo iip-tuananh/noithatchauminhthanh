@@ -17,9 +17,8 @@
         border: 1px solid var(--firdip-border-color, #F4F2EE);
         color: var(--firdip-secondary, #232728);
         transition: all 500ms ease-in-out;
-        font-size: 20px;
         line-height: 235%;
-        font-size: 20px;
+        font-size: 15px;
         font-weight: 600;
     }
     .pronation_widget ul a.active, .pronation_widget ul a:hover {
