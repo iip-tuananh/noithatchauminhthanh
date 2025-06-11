@@ -143,7 +143,12 @@
                 </div>
                 <div class="col-lg-6 col-xl-6">
                     <div class="product-details__top">
-                        <h3 class="product-details__title">{{ $product->name }} </h3>
+                        <h3 class="product-details__title">{{ $product->name }}
+
+                            @if($product->price)
+                                <span>{{ formatCurrency($product->price) }}đ</span>
+                            @endif
+                        </h3>
                     </div>
                     <div class="product-details__reveiw">
                         <i class="fa fa-star"></i>

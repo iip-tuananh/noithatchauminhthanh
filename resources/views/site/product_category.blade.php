@@ -193,6 +193,32 @@
                         font-size: 1.1rem;
                     }
 
+
+                    .product__all-content {
+                        display: flex;
+                        flex-direction: column;
+                        flex: 1;
+                        padding: 15px;
+                        text-align: center;
+                    }
+
+                    .product__info {
+                        margin-bottom: auto; /* đẩy .price-box xuống cuối */
+                    }
+
+                    .price-box {
+                        margin-top: 10px;
+                    }
+
+                    .price {
+                        font-size: 0.95rem;
+                        font-weight: bold;
+                        color: #a47c68; /* Màu đỏ nổi bật */
+                        display: inline-block;
+                        background: #fff3f3;
+                        padding: 5px 10px;
+                        border-radius: 4px;
+                    }
                 </style>
                 <div class="col-xl-9 col-lg-9">
                     <div class="product__items">
@@ -208,7 +234,16 @@
                                                 </div>
                                             </div>
                                             <div class="product__all-content">
-                                                <h4 class="product__all-title"><a href="{{ route('front.get-product-detail', $product->slug) }}">{{ $product->name }}</a></h4>
+                                                <div class="product__info">
+                                                    <h4 class="product__all-title"><a href="{{ route('front.get-product-detail', $product->slug) }}">{{ $product->name }}</a></h4>
+                                                </div>
+
+                                                @if($product->price)
+                                                    <div class="price-box">
+                                                        <span class="price">{{ formatCurrency($product->price) }}₫</span>
+                                                    </div>
+                                                @endif
+
                                             </div>
                                         </div>
                                     </div>
