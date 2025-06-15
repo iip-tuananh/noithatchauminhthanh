@@ -42,7 +42,7 @@ class About extends BaseModel
 
     public function image()
     {
-        return $this->morphOne(File::class, 'model');
+        return $this->morphOne(File::class, 'model')->where('custom_field', 'image');
     }
 
     public function image_back()
